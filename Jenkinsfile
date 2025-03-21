@@ -15,28 +15,28 @@ pipeline {
 
         stage('Construir Backend') {
             steps {
-                sh 'docker build -t $REGISTRY/prueba-backend:latest -f backend/Dockerfile backend'
+                bat 'docker build -t $REGISTRY/prueba-backend:latest -f backend/Dockerfile backend'
             }
         }
 
         stage('Construir Frontend') {
             steps {
-                sh 'docker build -t $REGISTRY/prueba-frontend:latest -f frontend/Dockerfile frontend'
+                bat 'docker build -t $REGISTRY/prueba-frontend:latest -f frontend/Dockerfile frontend'
             }
         }
 
         stage('Subir a Registro') {
             steps {
                 withDockerRegistry([credentialsId: 'docker-hub-credenciales', url: '']) {
-                    sh 'docker push $REGISTRY/prueba-backend:latest'
-                    sh 'docker push $REGISTRY/prueba-frontend:latest'
+                    bat 'docker push $REGISTRY/prueba-backend:latest'
+                    bat 'docker push $REGISTRY/prueba-frontend:latest'
                 }
             }
         }
 
         stage('Desplegar en Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s/'
+                bat 'kubectl apply -f k8s/'
             }
         }
     }
