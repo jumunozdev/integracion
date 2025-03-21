@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clonar Repositorio') {
             steps {
-                git 'https://github.com/jumunozdev/integracion.git'
+                 git branch: 'main', url: 'https://github.com/jumunozdev/integracion.git'
             }
         }
 
